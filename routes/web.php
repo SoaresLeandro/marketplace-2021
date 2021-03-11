@@ -13,21 +13,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
 
-Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
-    Route::prefix('stores')->name('stores.')->group(function () {
-        Route::get('/', '\\App\\Http\\Controllers\\Admin\\StoreController@index')->name('index');
-        Route::get('/create', '\\App\\Http\\Controllers\\Admin\\StoreController@create')->name('create');
-        Route::post('/store', '\\App\\Http\\Controllers\\Admin\\StoreController@store')->name('store');
-        Route::get('/edit/{id}', '\\App\\Http\\Controllers\\Admin\\StoreController@edit')->name('edit');;
-        Route::post('/update/{id}', '\\App\\Http\\Controllers\\Admin\\StoreController@update')->name('update');;
-        Route::get('/destroy/{id}', '\\App\\Http\\Controllers\\Admin\\StoreController@destroy')->name('destroy');;
-    });
+Route::group(['middleware' => 'auth'], function () {
 
-    // Route::prefix('products')->name('products.')->group(function () {
+    Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
+
+        Route::get('/home', function () {
+            return view('welcome');
+        })->name('home');
+
+        Route::prefix('stores')->name('stores.')->group(function () {
+            Route::get('/', '\\App\\Http\\Controllers\\Admin\\StoreController@index')->name('index');
+            Route::get('/create', '\\App\\Http\\Controllers\\Admin\\StoreController@create')->name('create');
+            Route::post('/store', '\\App\\Http\\Controllers\\Admin\\StoreController@store')->name('store');
+            Route::get('/edit/{id}', '\\App\\Http\\Controllers\\Admin\\StoreController@edit')->name('edit');;
+            Route::post('/update/{id}', '\\App\\Http\\Controllers\\Admin\\StoreController@update')->name('update');;
+            Route::get('/destroy/{id}', '\\App\\Http\\Controllers\\Admin\\StoreController@destroy')->name('destroy');;
+        });
+
         Route::resource('products', '\\App\\Http\\Controllers\\Admin\\ProductController');
-    // });
+    });
 });
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

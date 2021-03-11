@@ -9,6 +9,46 @@
     
 </head>
 <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">Marketplace 2021</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+                @auth
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item @if(request()->is('admin/home')) active @endif">
+                            <a class="nav-link" href="{{ route('admin.home') }}">Home <span class="sr-only">(página atual)</span></a>
+                        </li>
+                        <li class="nav-item @if(request()->is('admin/stores')) active @endif">
+                            <a class="nav-link" href="{{ route('admin.stores.index') }}">Lojas</a>
+                        </li>                    
+                        <li class="nav-item @if(request()->is('admin/products')) active @endif">
+                            <a class="nav-link" href="{{ route('admin.products.index') }}">Produtos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Categorias</a>
+                        </li>
+                    </ul>
+
+                    <div class="my-2 my-lg-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="event.preventDefault(); document.querySelector('.sair').submit();">Sair</a>
+                                    <form action="{{ route('logout') }}" class="sair" method="POST" hidden>
+                                        @csrf
+                                    </form>
+                            </li>                        
+                        </ul>                   
+                    <div>
+                @endauth
+            </div>
+        </div>
+    </nav>
     
     <div class="container">
         @include('flash::message')
