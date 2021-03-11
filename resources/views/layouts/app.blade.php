@@ -24,10 +24,10 @@
                         <li class="nav-item @if(request()->is('admin/home')) active @endif">
                             <a class="nav-link" href="{{ route('admin.home') }}">Home <span class="sr-only">(página atual)</span></a>
                         </li>
-                        <li class="nav-item @if(request()->is('admin/stores')) active @endif">
+                        <li class="nav-item @if(request()->is('admin/stores*')) active @endif">
                             <a class="nav-link" href="{{ route('admin.stores.index') }}">Lojas</a>
                         </li>                    
-                        <li class="nav-item @if(request()->is('admin/products')) active @endif">
+                        <li class="nav-item @if(request()->is('admin/products*')) active @endif">
                             <a class="nav-link" href="{{ route('admin.products.index') }}">Produtos</a>
                         </li>
                         <li class="nav-item">

@@ -5,36 +5,39 @@
     @csrf
     <div class="form-group">
         <label for="name">Nome do Produto</label>
-        <input type="text" class="form-control" name="name" id="name" class="form-control">
+        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" class="form-control" value="{{ old('name') }}">
+        @error('name')
+            <div class="invalid-feedback">{{$message}}</div>
+        @enderror
     </div>
 
     <div class="form-group">
         <label for="description">Descrição do Produto</label>
-        <input type="text" name="description" id="description" class="form-control">
+        <input type="text" name="description" id="description" class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}">
+        @error('description')
+            <div class="invalid-feedback">{{$message}}</div>
+        @enderror
     </div>
 
     <div class="form-group">
         <label for="body">Conteúdo</label>
-        <textarea name="body" id="body" class="form-control" rows="3"></textarea>
+        <textarea name="body" id="body" class="form-control @error('body') is-invalid @enderror" rows="3"> {{ old('body') }}</textarea>
+        @error('body')
+            <div class="invalid-feedback">{{$message}}</div>
+        @enderror
     </div>
 
     <div class="form-group">
         <label for="price">Preço</label>
-        <input type="text" name="price" id="price" class="form-control">
+        <input type="text" name="price" id="price" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}">
+        @error('price')
+            <div class="invalid-feedback">{{$message}}</div>
+        @enderror
     </div>
 
     <div class="form-group">
         <label for="slug">Slug</label>
-        <input type="text" name="slug" id="slug" class="form-control">
-    </div>
-
-    <div class="form-group">
-        <label for="store_id">Loja</label>
-        <select name="store_id" id="store_id" class="form-control">
-            @foreach($stores as $store)
-                <option value="{{ $store->id }}">{{ $store->name }}</option>
-            @endforeach
-        </select>
+        <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug') }}">
     </div>
 
     <div class="form-group">

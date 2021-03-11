@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Store;
+use App\Http\Requests\StoreRequest;
 
 class StoreController extends Controller
 {
@@ -13,11 +14,15 @@ class StoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('user.has.store')->only(['create', 'store']);
+    }
     public function index()
     {
-        $stores = Store::paginate(4);
+        $store = auth()->user()->store;
 
-        return view('admin.stores.index', compact(['stores']));
+        return view('admin.stores.index', compact(['store']));
     }
 
     /**
@@ -36,7 +41,7 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->all();
         $user = auth()->user();        
@@ -78,7 +83,7 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreRequest $request, $id)
     {
         $store = Store::find($id);
         $data = $request->all();
@@ -104,4 +109,5 @@ class StoreController extends Controller
         flash('Loja removida com sucesso.')->success();
         return redirect()->route('admin.stores.index');
     }
+
 }
