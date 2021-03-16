@@ -48,18 +48,13 @@
 
     <div class="form-group">
         <label for="photos">Fotos do produto</label>
-        <input type="file" class="form-control @error('photos') is-invalid @enderror" id="photos" name="photos[]" multiple>
+        <input type="file" class="form-control @error('photos.*') is-invalid @enderror" id="photos" name="photos[]" multiple>
 
-        @error('photos')
+        @error('photos.*')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
         @enderror
-    </div>
-
-    <div class="form-group">
-        <label for="slug">Slug</label>
-        <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug') }}">
     </div>
 
     <div class="form-group">

@@ -28,8 +28,8 @@ class ProductController extends Controller
     {
         $userStore = auth()->user()->store;
         $products = [];
-
-        if ($userStore) {
+        
+        if ($userStore) {            
             $products = $userStore->products()->paginate(4);
         }        
         
@@ -58,10 +58,18 @@ class ProductController extends Controller
     {
         $data = $request->all();
         $store = auth()->user()->store;
+        
+        if (is_null($store)) {
+            flash("Erro. Não há loja cadastrada para esse usuário.")->error();
+            
+            return redirect()->route('admin.products.create');
+        }
+
+        $categories = $request->get('categories', null);
 
         $product = $store->products()->create($data);
         
-        $product->categories()->sync($data['categories']);
+        $product->categories()->sync($categories);
 
         if ($request->hasFile('photos')) {
             $photos = $this->uploadPhoto($request->file('photos'), 'image');
@@ -109,9 +117,13 @@ class ProductController extends Controller
     {
         $data = $request->all();
         $product = $this->product->find($id);
+        $categories = $request->get('categories', null);
 
         $product->update($data);
-        $product->categories()->sync($data['categories']);
+
+        if (!is_null($categories)) {
+            $product->categories()->sync($categories);
+        }        
 
         if ($request->hasFile('photos')) {
             $photos = $this->uploadPhoto($request->file('photos'), 'image');
