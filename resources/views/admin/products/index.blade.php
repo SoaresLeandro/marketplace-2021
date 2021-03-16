@@ -36,6 +36,8 @@
        </table>
     @endif
 
-    {{ $products->links() }}
+    @if(count($products))
+        {{ $products->links() }}
+    @endif
 
 @endsection

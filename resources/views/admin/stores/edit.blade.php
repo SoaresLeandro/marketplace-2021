@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{ route('admin.stores.update', ['id' => $store->id]) }}" method="post">
+<form action="{{ route('admin.stores.update', ['id' => $store->id]) }}" method="post" enctype="multipart/form-data">
     @csrf
     <!-- @method('PUT') -->
     <div class="form-group">
@@ -37,6 +37,22 @@
     </div>
 
     <div class="form-group">
+
+        <p>
+            <img src="{{ asset('storage/' . $store->logo) }}" alt="">
+        </p>
+
+        <label for="logo">Logo</label>
+        <input type="file" name="logo" id="logo" class="form-control @error('logo') is-invalid @enderror">
+
+        @error('logo')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+
+    <div class="form-group">
         <label for="slug">Slug</label>
         <input type="text" name="slug" id="slug" class="form-control" value="{{ $store->slug }}">
     </div>
@@ -45,4 +61,14 @@
         <button type="submit" class="btn btn-success">Salvar</button>
     </div>
 </form>
+
+<div class="row">
+    <div class="container">
+        <div class="row">
+
+            <img src="{{ asset('storage/' . $store->photo) }}" alt="" class="img-fluid">
+        
+        </div>
+    </div>
+</div>
 @endsection

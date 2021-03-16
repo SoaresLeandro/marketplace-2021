@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('home');
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -35,6 +35,10 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::resource('products', '\\App\\Http\\Controllers\\Admin\\ProductController');
+
+        Route::resource('categories', '\\App\\Http\\Controllers\\Admin\\CategoryController');
+
+        Route::post('photos/remove', '\\App\\Http\\Controllers\\Admin\\ProductPhotoController@photoRemove')->name('photo.remove');
     });
 });
 
