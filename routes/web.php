@@ -13,9 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', '\\App\\Http\\Controllers\\HomeController@index')->name('home');
+Route::get('/product/{slug}', '\\App\\Http\\Controllers\\HomeController@productSingle')->name('product.single');
+
+Route::prefix('cart')->name('cart.')->group( function () {
+    Route::get('/', '\\App\\Http\\Controllers\\CartController@index')->name('index');
+    Route::get('/add', '\\App\\Http\\Controllers\\CartController@add')->name('add');
+    Route::get('/remove/{slug}', '\\App\\Http\\Controllers\\CartController@remove')->name('remove');
+    Route::get('/cancel', '\\App\\Http\\Controllers\\CartController@cancel')->name('cancel');
+});
 
 Route::group(['middleware' => 'auth'], function () {
 
