@@ -34,6 +34,32 @@
             @endif
 
         @endforeach
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="alert alert-dark" role="alert">
+                Lojas em destaque
+            </h4>
+        </div>
+
+        @foreach ($stores as $store)
+            <div class="col-sm-4">
+                @if ($store->logo)
+                    <img src="{{ asset('storage/' . $store->logo) }}" alt="{{ $store->name }}" class="img-fluid">
+                @else
+                    <img src="{{ asset('assets/img/loja-sem-logo.png') }}" alt="Loja sem logo" class="img-fluid">
+                @endif
+
+                <h3>{{ $store->name }}</h3>
+
+                <p>
+                    {{ $store->description }}
+                </p>
+
+                <a href="{{ route('store.single', ['slug' => $store->slug]) }}" class="btn btn-success">Visitar Loja</a>
+            </div>
+        @endforeach
 
     </div>
 

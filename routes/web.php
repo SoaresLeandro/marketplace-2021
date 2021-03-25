@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', '\\App\\Http\\Controllers\\HomeController@index')->name('home');
 Route::get('/product/{slug}', '\\App\\Http\\Controllers\\HomeController@productSingle')->name('product.single');
+Route::get('/category/{slug}', '\\App\\Http\\Controllers\\CategoryController@index')->name('category.single');
+Route::get('/store/{slug}', '\\App\\Http\\Controllers\\StoreController@index')->name('store.single');
 
 Route::prefix('cart')->name('cart.')->group( function () {
     Route::get('/', '\\App\\Http\\Controllers\\CartController@index')->name('index');

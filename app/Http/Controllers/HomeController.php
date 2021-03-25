@@ -10,10 +10,12 @@ use App\Models\Store;
 class HomeController extends Controller
 {
     private $product;
+    private $store;
 
-    public function __construct(Product $product)
+    public function __construct(Product $product, Store $store)
     {
         $this->product = $product;
+        $this->store = $store;
     }
     /**
      * Show the application dashboard.
@@ -22,9 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = $this->product->limit(8)->orderBY('id', 'DESC')->get();
+        $products = $this->product->limit(6)->orderBY('id', 'DESC')->get();
+        $stores = $this->store->limit(3)->get();
         
-        return view('welcome', compact(['products']));
+        return view('welcome', compact(['products', 'stores']));
     }
 
     public function productSingle($slug)
@@ -33,4 +36,5 @@ class HomeController extends Controller
         
         return view('product-single', compact(['product']));
     }
+    
 }

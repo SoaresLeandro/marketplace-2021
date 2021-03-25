@@ -15,8 +15,8 @@
                 <thead>
                     <tr>
                         <th>Produto</th>
-                        <th>Quantidade</th>
                         <th>Preço</th>
+                        <th>Quantidade</th>
                         <th>Subtotal</th>
                         <th>Ações</th>
                     </tr>
