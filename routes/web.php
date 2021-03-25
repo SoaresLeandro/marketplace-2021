@@ -23,6 +23,12 @@ Route::prefix('cart')->name('cart.')->group( function () {
     Route::get('/cancel', '\\App\\Http\\Controllers\\CartController@cancel')->name('cancel');
 });
 
+Route::prefix('checkout')->name('checkout.')->group( function () {
+    Route::get('/', '\\App\\Http\\Controllers\\CheckoutController@index')->name('index');
+    Route::post('/proccess', '\\App\\Http\\Controllers\\CheckoutController@proccess')->name('proccess');
+    Route::get('/thanks', '\\App\\Http\\Controllers\\CheckoutController@thanks')->name('thanks');
+});
+
 Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {

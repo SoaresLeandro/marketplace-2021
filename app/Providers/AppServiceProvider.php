@@ -25,5 +25,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+
+        \PagSeguro\Library::initialize();
+        \PagSeguro\Library::cmsVersion()->setName("Marketplace-Next TI")->setRelease("1.0.0");
+        \PagSeguro\Library::moduleVersion()->setName("Marketplace-Next TI")->setRelease("1.0.0");
     }
 }
